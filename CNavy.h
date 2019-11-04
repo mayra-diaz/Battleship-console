@@ -14,6 +14,9 @@ private:
 
 public:
     explicit CNavy(int x);
+    virtual ~CNavy();
+
+    void chooseNavy(integer x);
 
     auto getBoatsIncrease(){ return navy;};
 

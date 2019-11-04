@@ -12,10 +12,11 @@ private:
 
 public:
     explicit CBoard(integer x, bool show);
+    ~CBoard();
+
     void changeSquareFromPosition(carac a, integerPair &position);
     carac getSquareFromPositionForAttack(integerPair &position);
     bool occupiedMatrix(vectorIntPair* &vectorPositions, integerPair &initialPosition);
-    bool occupiedSquare(integerPair &position);
     void setBoat(vectorIntPair* boat, integerPair initialPosition);
     void printBoard();
 };

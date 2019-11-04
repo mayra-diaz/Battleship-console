@@ -51,22 +51,26 @@ carac CBoard::getSquareFromPositionForAttack(integerPair &position){
 }
 
 bool CBoard::occupiedMatrix(vectorIntPair* &vectorPositions, integerPair &initialPosition){
+    bool occupied = false;
     for (auto &position: *vectorPositions){
         auto pairPosition = make_pair(position.first + initialPosition.first, position.second + initialPosition.second);
-        return occupiedSquare(pairPosition);
+        if ((sBoard[pairPosition.first][pairPosition.second].getSquareForAttack() != '~')
+            &&  (sBoard[pairPosition.first][pairPosition.second].getActive()))
+            occupied = true;
     }
+    return occupied;
 }
 
-bool CBoard::occupiedSquare(integerPair &position){
-    if (sBoard[position.first][position.second].getSquareForPrint() == '*'){
-        std::cout << "Hola";
-    }
-    return (sBoard[position.first][position.second].getSquareForPrint() != '~');
-}
 
 void CBoard::setBoat(vectorIntPair* boat, integerPair initialPosition){
     int f = initialPosition.first, c = initialPosition.second;
     for (auto &p: *boat){
-        sBoard[f + p.first][c + p.second].setSquare('B');
+        sBoard[f + p.first][c + p.second].setSquare('B');}
+}
+
+CBoard::~CBoard() {
+    for (int i = 0; i <boardSize; ++i) {
+        delete [] sBoard[i];
     }
+    delete []sBoard; sBoard= nullptr;
 }

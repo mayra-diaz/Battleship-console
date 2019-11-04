@@ -11,15 +11,18 @@ private:
 public:
     explicit CSquare(){ square = '~'; active = true; show = true;};
 
+    virtual ~CSquare()= default;
+
     carac getSquareForAttack(){ return square;};
     carac getSquareForPrint()
-            { if (!active) return ' '; else if(active && show) return square;
-                else if (!show && active) {if (square=='B') return '~'; else return square;}};
+            { if (!active) return ' ';
+                if (!show && active) {if (square=='B' || square=='M') return '~'; else return square;}
+                else if(active && show) return square;};
 
-    bool getActive(){ return active;}
+    bool getActive(){return active;};
     void setSquare(carac ch){ square = ch;}
     void setShowAndActive(bool shw, bool act= false) { show = shw; active = act;};
-    void setShow(bool shw){show = shw; square='~';};
+    void setShow(bool shw){show = shw;};
 };
 
 #endif //POO_I_CSQUARE_H

@@ -1,47 +1,60 @@
 #include "CGame.h"
 
-// explicit CPlayer(str nm, int nArena, bool show, int nNavy)
-//  :name(std::move(nm)), score(0), board(nArena, show), navy(nNavy){}
-integer generateRandomNavy();
-
 void Game::executeGame() {;
     option = 1;
     str name;
-    bool show, nn= false;
+    bool show, navyInitialized= false, navyChoosen= false, playersNotCreated= true;
     inputName(name);
     do{
         printMenu();
-        if (option==1){
-            chooseArenaBoard();}
+        switch (option){
+            case 1:{
+                chooseArenaBoard();
+            }
+                break;
+            case 2:{
+                chooseNavy();
+                navyChoosen = true;
+            }
+                break;
+        }
 
-        else if (option==2){
-            chooseNavy();}
+        if (playersNotCreated) {
+            player1 = new CPlayer(name, board, true, 0);
+            player2 = new CPlayer("Enemigo", board, false, generateRandomNavy());
+            if (!navyChoosen) navy = generateRandomNavy();
+            playersNotCreated = false;
+        }
 
-        else {
-            jugador1 = new CPlayer(name, board, true, navy);
-            jugador2 = new CPlayer("Enemigo", board, false, generateRandomNavy());
-            if (option==3){
-                jugador1->setNavy(true);
-                nn = true;}
-            if (option==4){
+        switch (option){
+            case 3:{
+                player1->initializeNavy(navy);
+                player1->setNavy(true);
+                navyInitialized = true;
+            }
+                break;
+            case 4:{
                 infoWeapons();
-                if (!nn) jugador1->setNavy(false);
-                jugador2->setNavy(false);
+                if (!navyInitialized) {
+                    player1->initializeNavy(navy);
+                    player1->setNavy(false);
+                }
+                player2->setNavy(false);
                 play();
             }
+                break;
         }
     } while (option!=5);
 }
 
-integer generateRandomNavy(){
-    integer navy;
+integer Game::generateRandomNavy(){
+    integer v;
     do{
-        generateRandomNumber(navy);
-    } while (navy>4 || navy<0);
-    return navy;
+        generateRandomNumber(v);
+    } while (v > 4 || v < 1);
+    return v;
 }
 
-//CPlayer(str nm, int nArena, bool show, int nNavy)
 
 void Game::printMenu(){
     do{
@@ -68,18 +81,24 @@ void Game::chooseNavy() {
 
 //CPlayer *me, CPlayer *opponent, bool iWeapon, bool iCoordinate
 void Game::play() {
+    bool run = true;
     do{
-        std::cout << "\nTablero de " << jugador1->getName();
-        jugador1->printBoard();
+        std::cout << "\nUsted tiene " << player1->getScore() << " puntos.";
+        std::cout << "\nSu oponente tiene " << player2->getScore() << " puntos.";
+        std::cout << "\nTablero de " << player1->getName();
+        player1->printBoard();
 
-        std::cout << "\nTurno de: " << jugador1->getName()
-                    << "\nTablero enemigo: ";
-        jugador2->printBoard();
-        jugador1->attackOtherPlayer(jugador1, jugador2, true, true);
+        std::cout << "\nTablero enemigo: ";
+        player2->printBoard();
 
-        jugador2->attackOtherPlayer(jugador2, jugador1, false, false);
+        std::cout << "\nTurno de: " << player1->getName();
+        player1->attackOtherPlayer(player2, true);
+        player2->attackOtherPlayer(player1, false);
 
-    }while (jugador1->getScore()!=16 || jugador2->getScore()!=16);
+        if (player1->getScore() == 16) run = false;
+        if (player2->getScore() == 16) run = false;
+
+    }while (run);
 }
 
 

@@ -8,14 +8,16 @@
 
 class Game {
 private:
-    CPlayer *jugador1{};
-    CPlayer *jugador2{};
+    CPlayer *player1{};
+    CPlayer *player2{};
     integer option;
     integer navy;
     integer board;
+    integer generateRandomNavy();
 public:
-    explicit Game(){option = 0; navy=1; board = 1; jugador1= nullptr; jugador2= nullptr;};
-    ~Game()= default;
+    explicit Game(){option = 0; navy=0; board = 1; player1= nullptr; player2= nullptr;};
+    virtual ~Game(){delete player1; player1= nullptr; delete player2; player2= nullptr;};
+
     void executeGame();
     void printMenu();
     void chooseArenaBoard();
