@@ -49,12 +49,12 @@ CBoard::CBoard(integer x, bool show) {
 }
 
 void CBoard::printBoard() {
-    std::cout << "\n     0    1    2    3    4    5    6    7    8    9";
+    std::cout << "\n      0      1      2      3      4      5      6      7      8      9";
     //Iterate the square matrix
     for (int i = 0; i < boardSize; ++i) {
         std::cout << "\n" << i << "    ";
         for (int j = 0; j < boardSize; ++j) {
-            std::cout << sBoard[i][j].getSquareForPrint() << "    "; }
+            std::cout << "[" << sBoard[i][j].getSquareForPrint() << "]" << "    "; }
     }
 }
 

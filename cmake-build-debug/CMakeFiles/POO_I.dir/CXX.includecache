@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Mayra/CLionProjects/poo/CBoard.cpp
+CBoard.h
+C:/Users/Mayra/CLionProjects/poo/CBoard.h
+
+C:/Users/Mayra/CLionProjects/poo/CBoard.h
+Types-Random.h
+C:/Users/Mayra/CLionProjects/poo/Types-Random.h
+IOfunctions.h
+C:/Users/Mayra/CLionProjects/poo/IOfunctions.h
+CSquare.h
+C:/Users/Mayra/CLionProjects/poo/CSquare.h
+
+C:/Users/Mayra/CLionProjects/poo/CSquare.h
+
+C:/Users/Mayra/CLionProjects/poo/IOfunctions.h
+Types-Random.h
+C:/Users/Mayra/CLionProjects/poo/Types-Random.h
+
+C:/Users/Mayra/CLionProjects/poo/Types-Random.h
+vector
+-
+random
+-
+cstdlib
+-
+ctime
+-
+iostream
+-
+

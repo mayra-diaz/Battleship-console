@@ -1,0 +1,3 @@
+C:/Users/Mayra/CLionProjects/poo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Mayra/CLionProjects/poo/cmake-build-debug/CMakeFiles/POO_I.dir
+C:/Users/Mayra/CLionProjects/poo/cmake-build-debug/CMakeFiles/edit_cache.dir
