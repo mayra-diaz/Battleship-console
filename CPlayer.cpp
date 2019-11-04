@@ -44,7 +44,7 @@ void CPlayer::attackOtherPlayer(CPlayer *opponent, bool person) {
                 case 2: {
                     for (auto &attack: *attackRange) {
                         tempPair = make_pair(initialP.first + attack.first, initialP.second + attack.second);
-                        opponent->changeAttackedSquare(tempPair, this);
+                        opponent->changeAttackedSquare(tempPair, this, person);
                     }
                 }
                 case 3:{
@@ -63,11 +63,11 @@ void CPlayer::attackOtherPlayer(CPlayer *opponent, bool person) {
             if (tempPair.first) {
                 for (int i = 0; i <boardSize; ++i) {
                     tempPair = make_pair(initialP.first, i);
-                    opponent->changeAttackedSquare(tempPair, this);}
+                    opponent->changeAttackedSquare(tempPair, this, person);}
             } else {
                 for (int i = 0; i <boardSize; ++i) {
                     tempPair = make_pair(i, initialP.second);
-                    opponent->changeAttackedSquare(tempPair, this);}
+                    opponent->changeAttackedSquare(tempPair, this, person);}
             }
         }
             break;
@@ -78,12 +78,13 @@ void CPlayer::attackOtherPlayer(CPlayer *opponent, bool person) {
 }
 
 
-bool CPlayer::changeAttackedSquare(integerPair &position, CPlayer *opponent) {
+bool CPlayer::changeAttackedSquare(integerPair &position, CPlayer *opponent, bool person) {
     carac ch = board->getSquareFromPositionForAttack(position);
     switch (ch){
         case 'B':
             board->changeSquareFromPosition('X', position);
             opponent->sumScore(1);
+            //opponent->attackOtherPlayer(this, person);
             break;
         case 'F':
         case 'X':
@@ -97,8 +98,8 @@ bool CPlayer::changeAttackedSquare(integerPair &position, CPlayer *opponent) {
             generateRandomNumber(rand1); generateRandomNumber(rand2);
             integerPair secondAttack = make_pair(rand1, rand2);
 
-            opponent->changeAttackedSquare(firstAttack, this);
-            opponent->changeAttackedSquare(secondAttack, this);}
+            opponent->changeAttackedSquare(firstAttack, this, person);
+            opponent->changeAttackedSquare(secondAttack, this, person);}
         case '~':
         default:
             board->changeSquareFromPosition('F', position);

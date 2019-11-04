@@ -17,7 +17,7 @@ private:
     CBoard *board;
     CNavy *navy;
 
-    bool changeAttackedSquare(integerPair &position, CPlayer *opponent);
+    bool changeAttackedSquare(integerPair &position, CPlayer *opponent, bool person);
 
     void getWeapon(bool person, integer &op) const;
 
