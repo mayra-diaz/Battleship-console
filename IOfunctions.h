@@ -18,6 +18,7 @@ void inputBoard(integer& arena);
 
 void inputCoordinates(integer &r, integer &c);
 
+void chooseRowOrColum(carac &input);
 void inputRow(integer &r);
 void inputColum(integer &r);
 

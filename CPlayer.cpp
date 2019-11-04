@@ -39,21 +39,44 @@ void CPlayer::attackOtherPlayer(CPlayer *opponent, bool person) {
             vectorIntPair * attackRange;
             integerPair tempPair;
             attackRange = weapon.getAttackChanges();
-            for (auto &attack: *attackRange){
-                tempPair = make_pair(initialP.first+attack.first, initialP.second+attack.second);
-                opponent->changeAttackedSquare(tempPair, this);}}
+            switch (weaponNumber) {
+                case 1:
+                case 2: {
+                    for (auto &attack: *attackRange) {
+                        tempPair = make_pair(initialP.first + attack.first, initialP.second + attack.second);
+                        opponent->changeAttackedSquare(tempPair, this);
+                    }
+                }
+                case 3:{
+                    for (auto &attack: *attackRange) {
+                        tempPair = make_pair(initialP.first + attack.first, initialP.second + attack.second);
+                        if (opponent->board->getActiveFromPosition(tempPair))
+                            opponent->board->changeShowFromPosition(tempPair, true);
+
+                    }
+                }
+            }
+        }
             break;
         case 4:{
             integerPair tempPair;
-            for (int i = 0; i <boardSize; ++i) {
-                tempPair = make_pair(initialP.first, i);
-                opponent->changeAttackedSquare(tempPair, this);}}
+            if (tempPair.first) {
+                for (int i = 0; i <boardSize; ++i) {
+                    tempPair = make_pair(initialP.first, i);
+                    opponent->changeAttackedSquare(tempPair, this);}
+            } else {
+                for (int i = 0; i <boardSize; ++i) {
+                    tempPair = make_pair(i, initialP.second);
+                    opponent->changeAttackedSquare(tempPair, this);}
+            }
+        }
             break;
         case 5:{
             board->changeSquareFromPosition('M', initialP);
         }
     }
 }
+
 
 bool CPlayer::changeAttackedSquare(integerPair &position, CPlayer *opponent) {
     carac ch = board->getSquareFromPositionForAttack(position);
@@ -100,10 +123,18 @@ void CPlayer::getInitialPositionForAttack(bool person, integer weapon, integerPa
             getInitialPosition(person, initialP, range, 1);}
             break;
         case 4:{
-            integer row;
-            if (person) inputRow(row);
-            else generateRandomNumber(row);
-            initialP = make_pair(row, 0);}
+            carac input = 'f';
+            integer v;
+            if (person) chooseRowOrColum(input);
+            else generateRandomNumber(v);
+            if (input == 'f'){
+                inputRow(v);
+                initialP = make_pair(v, 0);
+            } else {
+                inputColum(v);
+                initialP = make_pair(0, v);
+            }
+        }
             break;
     }
 }

@@ -16,6 +16,8 @@ public:
 
     void changeSquareFromPosition(carac a, integerPair &position);
     carac getSquareFromPositionForAttack(integerPair &position);
+    bool getActiveFromPosition(integerPair &position);
+    void changeShowFromPosition(integerPair &position, bool show);
     bool occupiedMatrix(vectorIntPair* &vectorPositions, integerPair &initialPosition);
     void setBoat(vectorIntPair* boat, integerPair initialPosition);
     void printBoard();

@@ -54,7 +54,10 @@ void CBoard::printBoard() {
     for (int i = 0; i < boardSize; ++i) {
         std::cout << "\n" << i << "    ";
         for (int j = 0; j < boardSize; ++j) {
-            std::cout << "[" << sBoard[i][j].getSquareForPrint() << "]" << "    "; }
+            if (sBoard[i][j].getActive())
+            std::cout << "[" << sBoard[i][j].getSquareForPrint() << "]" << "    ";
+            else std::cout << "       ";
+        }
     }
 }
 
@@ -93,4 +96,12 @@ CBoard::~CBoard() {
         delete [] sBoard[i];
     }
     delete []sBoard; sBoard= nullptr;
+}
+
+bool CBoard::getActiveFromPosition(integerPair &position) {
+    return sBoard[position.first][position.second].getActive();
+}
+
+void CBoard::changeShowFromPosition(integerPair &position, bool show) {
+    sBoard[position.first][position.second].setShow(show);
 }

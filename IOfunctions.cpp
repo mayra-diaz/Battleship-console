@@ -19,7 +19,7 @@ void printNavy(vector<vector<carac>> &navy){
     for (auto &vec: navy){
         cout << "\n";
         for (auto &ch: vec){
-            cout << ch << "  ";
+            cout << ch  << "  ";
         }
     }
 }
@@ -76,6 +76,13 @@ void inputBoard(integer& arena){
         cout << "\nIngrese la arena que desea utilizar (1-2): ";
         cin >> arena;
     } while (arena<1 || arena>3);
+}
+
+void chooseRowOrColum(carac &input){
+    do {
+        std::cout << "\n¿Desea atacar una fila (f) o una columna (c)?";
+        std::cin >> input;
+    } while (input!= 'f' && input!= 'c');
 }
 
 void inputRow(integer &r){
