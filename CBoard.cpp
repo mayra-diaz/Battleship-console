@@ -2,14 +2,30 @@
 
 //Proove active position for second arena
 bool proveSecondArena(int x, int y){
-    return (x==3 || x==4 || x==5 || x==6) && (y==0 || y==(boardSize-1));
+    return (x>2 && x<7) && (y==0 || y==(boardSize-1));
+}
+
+bool proveThirdArena(int x, int y){
+    return (x>2 && x<7) && (y>2 && y <7);
 }
 
 
 CBoard::CBoard(integer x, bool show) {
     switch (x) {
+        //third arena initializer
+        case 3:{
+            sBoard = new CSquare *[boardSize];
+            for (int i = 0; i < boardSize; ++i) {
+                sBoard[i] = new CSquare[boardSize];
+            }
+            for (int i = 0; i < boardSize; ++i) {
+                for (int j = 0; j < boardSize; ++j) {
+                    sBoard[i][j].setShowAndActive(show, !(proveThirdArena(i, j) || proveThirdArena(j, i)));
+                }}
+        }
+            break;
         //second arena initializer
-        case 2:
+        case 2:{
             sBoard = new CSquare *[boardSize];
             for (int i = 0; i < boardSize; ++i) {
                 sBoard[i] = new CSquare[boardSize];
@@ -17,18 +33,18 @@ CBoard::CBoard(integer x, bool show) {
             for (int i = 0; i < boardSize; ++i) {
                 for (int j = 0; j < boardSize; ++j) {
                     sBoard[i][j].setShowAndActive(show, !(proveSecondArena(i, j) || proveSecondArena(j, i)));
-                }
+                }}
             }
-            break;
-            //first/deafult arena
+                break;
+        //first/deafult arena
         case 1:
-        default:
+        default:{
             sBoard = new CSquare *[boardSize];
             for (int i = 0; i < boardSize; ++i) {
                 sBoard[i] = new CSquare[boardSize];
                 for (int j = 0; j < boardSize; ++j) {
-                    sBoard[i][j].setShow(show);}
-            }
+                    sBoard[i][j].setShow(show);}}
+        }
     }
 }
 
@@ -54,9 +70,13 @@ bool CBoard::occupiedMatrix(vectorIntPair* &vectorPositions, integerPair &initia
     bool occupied = false;
     for (auto &position: *vectorPositions){
         auto pairPosition = make_pair(position.first + initialPosition.first, position.second + initialPosition.second);
-        if ((sBoard[pairPosition.first][pairPosition.second].getSquareForAttack() != '~')
-            &&  (sBoard[pairPosition.first][pairPosition.second].getActive()))
+        if (sBoard[pairPosition.first][pairPosition.second].getActive()){
+            if (sBoard[pairPosition.first][pairPosition.second].getSquareForAttack() != '~')
+                {occupied = true;
+                break;}
+        } else {
             occupied = true;
+            break;}
     }
     return occupied;
 }

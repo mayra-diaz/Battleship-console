@@ -66,13 +66,16 @@ void printBoards(){
     CBoard board2(2, false);
     cout << "\nArena 2: ";
     board2.printBoard();
+    CBoard board3(3, false);
+    cout << "\nArena 3: ";
+    board3.printBoard();
 }
 
 void inputBoard(integer& arena){
     do {
         cout << "\nIngrese la arena que desea utilizar (1-2): ";
         cin >> arena;
-    } while (arena!=1 && arena!=2);
+    } while (arena<1 || arena>3);
 }
 
 void inputRow(integer &r){
